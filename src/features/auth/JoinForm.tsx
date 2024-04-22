@@ -53,7 +53,7 @@ const JoinForm = () => {
                 ></FormField>
 
                 <Button type="submit" className="w-full">
-                    submit()
+                    join()
                 </Button>
             </form>
         </Form>
