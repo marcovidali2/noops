@@ -14,7 +14,7 @@ export const useJoin = () => {
         onError: () =>
             toast({
                 variant: "destructive",
-                description: "an error occurred while joining you up",
+                description: "an error occurred while joining",
             }),
     });
 
