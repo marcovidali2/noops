@@ -1,8 +1,16 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AppLayout from "./ui/AppLayout";
+import Join from "./pages/Join";
+
 const App = () => {
     return (
-        <div className="font-roboto-mono">
-            <p>noops</p>
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route element={<AppLayout />}>
+                    <Route path="/join" element={<Join />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
     );
 };
 
