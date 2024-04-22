@@ -11,6 +11,8 @@ import {
 } from "@/ui/form";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
+import { useJoin } from "./useJoin";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 const formSchema = z.object({
     email: z.string().email({
@@ -19,6 +21,8 @@ const formSchema = z.object({
 });
 
 const JoinForm = () => {
+    const { join, isLoading } = useJoin();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -28,7 +32,7 @@ const JoinForm = () => {
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
         const { email } = values;
-        console.log(email);
+        join(email);
     };
 
     return (
@@ -44,6 +48,7 @@ const JoinForm = () => {
                                 <Input
                                     placeholder="myemail@mydomain.com"
                                     type="email"
+                                    disabled={isLoading}
                                     {...field}
                                 />
                             </FormControl>
@@ -52,7 +57,10 @@ const JoinForm = () => {
                     )}
                 ></FormField>
 
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading && (
+                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     join()
                 </Button>
             </form>
