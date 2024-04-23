@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import AppLayout from "./ui/AppLayout";
 import Join from "./pages/Join";
+import UserProtectedRoute from "./features/auth/UserProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,14 @@ const App = () => {
                 <BrowserRouter>
                     <Routes>
                         <Route element={<AppLayout />}>
+                            <Route
+                                index
+                                element={
+                                    <UserProtectedRoute>
+                                        <h1>home</h1>
+                                    </UserProtectedRoute>
+                                }
+                            />
                             <Route path="/join" element={<Join />} />
                         </Route>
                     </Routes>
