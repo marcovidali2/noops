@@ -11,28 +11,37 @@ import {
 } from "@/ui/form";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
-import { useJoin } from "./useJoin";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { useProfileStore } from "./useProfileStore";
+import { useNavigate } from "react-router-dom";
+import { useUsernames } from "./useUsernames";
 
 const formSchema = z.object({
-    email: z.string().email({
-        select: "invalid email address",
-    }),
+    username: z.string(),
 });
 
-const JoinForm = () => {
-    const { join, isLoading } = useJoin();
+const WelcomeUsernameForm = () => {
+    const { setUsername } = useProfileStore();
+    const { usernames } = useUsernames();
 
+    const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            email: "",
-        },
     });
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        const { email } = values;
-        join(email);
+        const { username } = values;
+
+        const isUsernameAvailable =
+            usernames?.filter((_username) => _username === username).length ===
+            0;
+
+        if (!isUsernameAvailable)
+            return form.setError("username", {
+                message: "this username is already in use",
+            });
+
+        setUsername(username);
+        navigate("/welcome/favorite-language");
     };
 
     return (
@@ -40,32 +49,24 @@ const JoinForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
-                    name="email"
+                    name="username"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>email</FormLabel>
+                            <FormLabel>username</FormLabel>
                             <FormControl>
-                                <Input
-                                    placeholder="myemail@mydomain.com"
-                                    type="email"
-                                    disabled={isLoading}
-                                    {...field}
-                                />
+                                <Input placeholder="anonymous" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 ></FormField>
 
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading && (
-                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                    )}
-                    join()
+                <Button type="submit" className="w-full">
+                    next()
                 </Button>
             </form>
         </Form>
     );
 };
 
-export default JoinForm;
+export default WelcomeUsernameForm;

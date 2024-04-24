@@ -11,28 +11,42 @@ import {
 } from "@/ui/form";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
-import { useJoin } from "./useJoin";
+import { useProfileStore } from "./useProfileStore";
+import { useNavigate } from "react-router-dom";
+import { useUploadAvatar } from "./useUploadAvatar";
 import { ReloadIcon } from "@radix-ui/react-icons";
 
+const AVATARS_BUCKET_URL = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/avatars/`;
+
 const formSchema = z.object({
-    email: z.string().email({
-        select: "invalid email address",
-    }),
+    avatar: z.instanceof(FileList),
 });
 
-const JoinForm = () => {
-    const { join, isLoading } = useJoin();
+const WelcomeAvatarForm = () => {
+    const { setAvatar } = useProfileStore();
+    const { uploadAvatar, isLoading } = useUploadAvatar();
 
+    const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            email: "",
-        },
     });
 
+    const avatarRef = form.register("avatar");
+
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        const { email } = values;
-        join(email);
+        const { avatar } = values;
+
+        if (avatar.length === 1) {
+            uploadAvatar(avatar[0], {
+                onSuccess: (avatar) => {
+                    setAvatar(AVATARS_BUCKET_URL + avatar.path);
+                    navigate("/welcome/submit");
+                },
+            });
+        } else {
+            setAvatar(AVATARS_BUCKET_URL + "default");
+            navigate("/welcome/submit");
+        }
     };
 
     return (
@@ -40,16 +54,16 @@ const JoinForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
-                    name="email"
-                    render={({ field }) => (
+                    name="avatar"
+                    render={() => (
                         <FormItem>
-                            <FormLabel>email</FormLabel>
+                            <FormLabel>avatar (optional)</FormLabel>
                             <FormControl>
                                 <Input
-                                    placeholder="myemail@mydomain.com"
-                                    type="email"
+                                    type="file"
+                                    accept="image/png, image/jpeg"
                                     disabled={isLoading}
-                                    {...field}
+                                    {...avatarRef}
                                 />
                             </FormControl>
                             <FormMessage />
@@ -61,11 +75,11 @@ const JoinForm = () => {
                     {isLoading && (
                         <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
                     )}
-                    join()
+                    submit()
                 </Button>
             </form>
         </Form>
     );
 };
 
-export default JoinForm;
+export default WelcomeAvatarForm;

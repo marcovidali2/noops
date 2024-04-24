@@ -11,28 +11,25 @@ import {
 } from "@/ui/form";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
-import { useJoin } from "./useJoin";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { useProfileStore } from "./useProfileStore";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
-    email: z.string().email({
-        select: "invalid email address",
-    }),
+    name: z.string(),
 });
 
-const JoinForm = () => {
-    const { join, isLoading } = useJoin();
+const WelcomeNameForm = () => {
+    const { setName } = useProfileStore();
 
+    const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            email: "",
-        },
     });
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        const { email } = values;
-        join(email);
+        const { name } = values;
+        setName(name);
+        navigate("/welcome/username");
     };
 
     return (
@@ -40,32 +37,24 @@ const JoinForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
-                    name="email"
+                    name="name"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>email</FormLabel>
+                            <FormLabel>name</FormLabel>
                             <FormControl>
-                                <Input
-                                    placeholder="myemail@mydomain.com"
-                                    type="email"
-                                    disabled={isLoading}
-                                    {...field}
-                                />
+                                <Input placeholder="andres freund" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 ></FormField>
 
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading && (
-                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                    )}
-                    join()
+                <Button type="submit" className="w-full">
+                    next()
                 </Button>
             </form>
         </Form>
     );
 };
 
-export default JoinForm;
+export default WelcomeNameForm;

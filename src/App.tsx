@@ -7,10 +7,20 @@ import { Suspense, lazy } from "react";
 import AppLayout from "./ui/AppLayout";
 import UserProtectedRoute from "./features/auth/UserProtectedRoute";
 import FullPageSpinner from "./ui/FullPageSpinner";
+import ProfileProtectedRoute from "./features/profiles/ProfileProtectedRoute";
 
 const queryClient = new QueryClient();
 
 const Join = lazy(() => import("./pages/Join"));
+
+const WelcomeName = lazy(() => import("./pages/WelcomeName"));
+const WelcomeUsername = lazy(() => import("./pages/WelcomeUsername"));
+const WelcomeFavoriteLanguage = lazy(
+    () => import("./pages/WelcomeFavoriteLanguage"),
+);
+const WelcomeBio = lazy(() => import("./pages/WelcomeBio"));
+const WelcomeAvatar = lazy(() => import("./pages/WelcomeAvatar"));
+const WelcomeSubmit = lazy(() => import("./pages/WelcomeSubmit"));
 
 const App = () => {
     useSetTheme();
@@ -28,11 +38,39 @@ const App = () => {
                                     index
                                     element={
                                         <UserProtectedRoute>
-                                            <h1>home</h1>
+                                            <ProfileProtectedRoute>
+                                                <h1>home</h1>
+                                            </ProfileProtectedRoute>
                                         </UserProtectedRoute>
                                     }
                                 />
+
                                 <Route path="/join" element={<Join />} />
+
+                                <Route
+                                    path="/welcome/name"
+                                    element={<WelcomeName />}
+                                />
+                                <Route
+                                    path="/welcome/username"
+                                    element={<WelcomeUsername />}
+                                />
+                                <Route
+                                    path="/welcome/favorite-language"
+                                    element={<WelcomeFavoriteLanguage />}
+                                />
+                                <Route
+                                    path="/welcome/bio"
+                                    element={<WelcomeBio />}
+                                />
+                                <Route
+                                    path="/welcome/avatar"
+                                    element={<WelcomeAvatar />}
+                                />
+                                <Route
+                                    path="/welcome/submit"
+                                    element={<WelcomeSubmit />}
+                                />
                             </Route>
                         </Routes>
                     </BrowserRouter>

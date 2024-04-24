@@ -1,0 +1,48 @@
+import { Tables } from "@/types";
+import { getUser } from "./apiAuth";
+import { supabase } from "./supabase";
+
+export const uploadAvatar = async (file: File) => {
+    const user = await getUser();
+
+    const { data, error } = await supabase.storage
+        .from("avatars")
+        .upload(user!.id, file, { upsert: true });
+
+    if (error) throw new Error(error.message);
+    return data;
+};
+export const getProfile = async (id: string) => {
+    const { data: profile, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", id);
+
+    if (error) throw new Error(error.message);
+    return profile.length > 0 ? profile : null;
+};
+
+export const getUsernames = async () => {
+    const { data: profiles, error } = await supabase
+        .from("profiles")
+        .select("username");
+
+    if (error) throw new Error(error.message);
+    return profiles.map((profile) => profile.username);
+};
+
+export const createProfile = async (profile: Tables<"profiles">) => {
+    const profileSupabase = {
+        name: profile.name,
+        username: profile.username,
+        favorite_language: profile.favorite_language,
+        bio: profile.bio,
+        avatar: profile.avatar,
+    };
+
+    const { error } = await supabase
+        .from("profiles")
+        .upsert([profileSupabase], { onConflict: "id" });
+
+    if (error) throw new Error(error.message);
+};

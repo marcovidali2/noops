@@ -9,30 +9,27 @@ import {
     FormLabel,
     FormMessage,
 } from "@/ui/form";
-import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
-import { useJoin } from "./useJoin";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { useProfileStore } from "./useProfileStore";
+import { useNavigate } from "react-router-dom";
+import { Textarea } from "@/ui/textarea";
 
 const formSchema = z.object({
-    email: z.string().email({
-        select: "invalid email address",
-    }),
+    bio: z.string().optional(),
 });
 
-const JoinForm = () => {
-    const { join, isLoading } = useJoin();
+const WelcomeBioForm = () => {
+    const { setBio } = useProfileStore();
 
+    const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            email: "",
-        },
     });
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        const { email } = values;
-        join(email);
+        const { bio } = values;
+        setBio(bio ?? null);
+        navigate("/welcome/avatar");
     };
 
     return (
@@ -40,15 +37,15 @@ const JoinForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
-                    name="email"
+                    name="bio"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>email</FormLabel>
+                            <FormLabel>bio (optional)</FormLabel>
                             <FormControl>
-                                <Input
-                                    placeholder="myemail@mydomain.com"
-                                    type="email"
-                                    disabled={isLoading}
+                                <Textarea
+                                    placeholder="i try to be a dev"
+                                    className="resize-none"
+                                    rows={4}
                                     {...field}
                                 />
                             </FormControl>
@@ -57,15 +54,12 @@ const JoinForm = () => {
                     )}
                 ></FormField>
 
-                <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading && (
-                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                    )}
-                    join()
+                <Button type="submit" className="w-full">
+                    next()
                 </Button>
             </form>
         </Form>
     );
 };
 
-export default JoinForm;
+export default WelcomeBioForm;
