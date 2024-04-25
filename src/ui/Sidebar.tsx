@@ -1,21 +1,37 @@
 import { NavLink } from "react-router-dom";
 import { Button } from "./button";
-import { IoAddOutline, IoHomeOutline } from "react-icons/io5";
+import { IoAdd, IoAddOutline, IoHome, IoHomeOutline } from "react-icons/io5";
 
 const Sidebar = () => {
     return (
-        <ul className="flex h-screen flex-col gap-2 border-r p-4">
+        <div className="flex h-screen flex-col gap-2 border-r p-4">
             <NavLink to="/">
-                <Button variant="ghost">
-                    <IoHomeOutline size={20} />
-                </Button>
+                {({ isActive }) =>
+                    isActive ? (
+                        <Button variant="ghost">
+                            <IoHome />
+                        </Button>
+                    ) : (
+                        <Button variant="ghost">
+                            <IoHomeOutline />
+                        </Button>
+                    )
+                }
             </NavLink>
             <NavLink to="/create">
-                <Button variant="ghost">
-                    <IoAddOutline size={20} />
-                </Button>
+                {({ isActive }) =>
+                    isActive ? (
+                        <Button variant="ghost">
+                            <IoAdd />
+                        </Button>
+                    ) : (
+                        <Button variant="ghost">
+                            <IoAddOutline />
+                        </Button>
+                    )
+                }
             </NavLink>
-        </ul>
+        </div>
     );
 };
 
