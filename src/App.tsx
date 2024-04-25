@@ -5,11 +5,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, lazy } from "react";
 
 import AppLayout from "./AppLayout";
-import UserProtectedRoute from "./features/users/UserProtectedRoute";
 import FullPageSpinner from "./ui/FullPageSpinner";
-import ProfileProtectedRoute from "./features/profiles/ProfileProtectedRoute";
 
 const queryClient = new QueryClient();
+
+const Home = lazy(() => import("./pages/Home"));
 
 const Join = lazy(() => import("./pages/Join"));
 
@@ -34,16 +34,7 @@ const App = () => {
                     <BrowserRouter>
                         <Routes>
                             <Route element={<AppLayout />}>
-                                <Route
-                                    index
-                                    element={
-                                        <UserProtectedRoute>
-                                            <ProfileProtectedRoute>
-                                                <h1>home</h1>
-                                            </ProfileProtectedRoute>
-                                        </UserProtectedRoute>
-                                    }
-                                />
+                                <Route index element={<Home />} />
 
                                 <Route path="/join" element={<Join />} />
 
