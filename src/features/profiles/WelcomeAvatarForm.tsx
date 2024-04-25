@@ -14,7 +14,7 @@ import { Button } from "@/ui/button";
 import { useProfileStore } from "./useProfileStore";
 import { useNavigate } from "react-router-dom";
 import { useUploadAvatar } from "./useUploadAvatar";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { IoReload } from "react-icons/io5";
 
 const AVATARS_BUCKET_URL = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/avatars/`;
 
@@ -73,7 +73,7 @@ const WelcomeAvatarForm = () => {
 
                 <Button type="submit" className="w-full" disabled={isLoading}>
                     {isLoading && (
-                        <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                        <IoReload className="mr-2 h-4 w-4 animate-spin" />
                     )}
                     submit()
                 </Button>
