@@ -1,16 +1,17 @@
+import { Outlet } from "react-router-dom";
+
 import ProfileProtectedRoute from "@/features/profiles/ProfileProtectedRoute";
 import UserProtectedRoute from "@/features/users/UserProtectedRoute";
-
-import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
 
 const CoreLayout = () => {
     return (
         <UserProtectedRoute>
             <ProfileProtectedRoute>
-                <div className="flex">
-                    <Sidebar />
-                    <div className="p-4">
+                <div className="flex h-dvh flex-col-reverse sm:flex-row">
+                    <Navbar />
+
+                    <div className="grow p-4">
                         <Outlet />
                     </div>
                 </div>
