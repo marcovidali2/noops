@@ -10,7 +10,9 @@ const CoreLayout = () => {
             <ProfileProtectedRoute>
                 <div className="flex">
                     <Sidebar />
-                    <Outlet />
+                    <div className="p-4">
+                        <Outlet />
+                    </div>
                 </div>
             </ProfileProtectedRoute>
         </UserProtectedRoute>
