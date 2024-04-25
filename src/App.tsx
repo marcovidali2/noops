@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useSetTheme } from "./features/theme/useSetTheme";
-import { Toaster } from "./ui/toaster";
+import { useSetTheme } from "./ui/useSetTheme";
+import { Toaster } from "./ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, lazy } from "react";
 
-import AppLayout from "./ui/AppLayout";
-import UserProtectedRoute from "./features/auth/UserProtectedRoute";
+import AppLayout from "./AppLayout";
+import UserProtectedRoute from "./features/users/UserProtectedRoute";
 import FullPageSpinner from "./ui/FullPageSpinner";
 import ProfileProtectedRoute from "./features/profiles/ProfileProtectedRoute";
 
@@ -27,7 +27,7 @@ const App = () => {
 
     return (
         <>
-            <Toaster />
+            <Toaster position="top-center" />
 
             <QueryClientProvider client={queryClient}>
                 <Suspense fallback={<FullPageSpinner />}>

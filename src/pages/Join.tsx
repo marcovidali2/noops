@@ -1,4 +1,4 @@
-import JoinForm from "@/features/auth/JoinForm";
+import JoinForm from "@/features/users/JoinForm";
 import FullPageForm from "@/ui/FullPageForm";
 
 const Join = () => {

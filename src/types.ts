@@ -13,7 +13,7 @@ export type Database = {
                 Row: {
                     avatar: string;
                     bio: string | null;
-                    favorite_language: string;
+                    favoriteLanguage: string;
                     id: string;
                     joined_at: string;
                     name: string;
@@ -22,7 +22,7 @@ export type Database = {
                 Insert: {
                     avatar: string;
                     bio?: string | null;
-                    favorite_language: string;
+                    favoriteLanguage: string;
                     id?: string;
                     joined_at?: string;
                     name: string;
@@ -31,7 +31,7 @@ export type Database = {
                 Update: {
                     avatar?: string;
                     bio?: string | null;
-                    favorite_language?: string;
+                    favoriteLanguage?: string;
                     id?: string;
                     joined_at?: string;
                     name?: string;

@@ -5,8 +5,7 @@ import { useCreateProfile } from "./useCreateProfile";
 import FullPageSpinner from "@/ui/FullPageSpinner";
 
 const WelcomeSubmitScript = () => {
-    const { name, username, favorite_language, bio, avatar } =
-        useProfileStore();
+    const { name, username, favoriteLanguage, bio, avatar } = useProfileStore();
     const { createProfile } = useCreateProfile();
 
     useEffect(() => {
@@ -15,13 +14,13 @@ const WelcomeSubmitScript = () => {
             joined_at: "",
             name: name,
             username: username,
-            favorite_language: favorite_language,
+            favoriteLanguage: favoriteLanguage,
             bio: bio,
             avatar: avatar,
         };
 
         createProfile(profile);
-    }, [name, username, favorite_language, bio, avatar, createProfile]);
+    }, [name, username, favoriteLanguage, bio, avatar, createProfile]);
 
     return <FullPageSpinner />;
 };

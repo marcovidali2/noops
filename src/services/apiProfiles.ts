@@ -1,5 +1,5 @@
 import { Tables } from "@/types";
-import { getUser } from "./apiAuth";
+import { getUser } from "./apiUsers";
 import { supabase } from "./supabase";
 
 export const uploadAvatar = async (file: File) => {
@@ -35,7 +35,7 @@ export const createProfile = async (profile: Tables<"profiles">) => {
     const profileSupabase = {
         name: profile.name,
         username: profile.username,
-        favorite_language: profile.favorite_language,
+        favoriteLanguage: profile.favoriteLanguage,
         bio: profile.bio,
         avatar: profile.avatar,
     };

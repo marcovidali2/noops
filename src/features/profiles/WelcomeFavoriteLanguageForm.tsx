@@ -84,7 +84,7 @@ const programmingLanguages = [
 ];
 
 const formSchema = z.object({
-    favorite_language: z.string(),
+    favoriteLanguage: z.string(),
 });
 
 const WelcomeFavoriteLanguageForm = () => {
@@ -96,8 +96,8 @@ const WelcomeFavoriteLanguageForm = () => {
     });
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        const { favorite_language } = values;
-        setFavoriteLanguage(favorite_language);
+        const { favoriteLanguage } = values;
+        setFavoriteLanguage(favoriteLanguage);
         navigate("/welcome/bio");
     };
 
@@ -106,7 +106,7 @@ const WelcomeFavoriteLanguageForm = () => {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
-                    name="favorite_language"
+                    name="favoriteLanguage"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>favorite programming language</FormLabel>

@@ -1,4 +1,4 @@
-import UserProtectedRoute from "@/features/auth/UserProtectedRoute";
+import UserProtectedRoute from "@/features/users/UserProtectedRoute";
 import WelcomeBioForm from "@/features/profiles/WelcomeBioForm";
 import FullPageForm from "@/ui/FullPageForm";
 

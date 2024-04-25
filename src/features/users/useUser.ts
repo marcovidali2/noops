@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUser } from "../../services/apiAuth";
+import { getUser } from "../../services/apiUsers";
 import { useEffect } from "react";
-import { useToast } from "@/ui/use-toast";
+import { toast } from "sonner";
 
 export const useUser = () => {
-    const { toast } = useToast();
-
     const {
         isLoading,
         data: user,
@@ -16,12 +14,8 @@ export const useUser = () => {
     });
 
     useEffect(() => {
-        if (error)
-            toast({
-                variant: "destructive",
-                description: "an error occured while fetching your user",
-            });
-    }, [error, toast]);
+        if (error) toast.error("an error occured while fetching your user");
+    }, [error]);
 
     return { isLoading, user, isAuthenticated: user?.role === "authenticated" };
 };

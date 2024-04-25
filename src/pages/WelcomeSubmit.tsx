@@ -1,4 +1,4 @@
-import UserProtectedRoute from "@/features/auth/UserProtectedRoute";
+import UserProtectedRoute from "@/features/users/UserProtectedRoute";
 import WelcomeSubmitScript from "@/features/profiles/WelcomeSubmitScript";
 
 const WelcomeSubmit = () => {

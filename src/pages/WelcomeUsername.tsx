@@ -1,6 +1,6 @@
 import { useUsernames } from "@/features/profiles/useUsernames";
 
-import UserProtectedRoute from "@/features/auth/UserProtectedRoute";
+import UserProtectedRoute from "@/features/users/UserProtectedRoute";
 import WelcomeUsernameForm from "@/features/profiles/WelcomeUsernameForm";
 import FullPageForm from "@/ui/FullPageForm";
 import FullPageSpinner from "@/ui/FullPageSpinner";
