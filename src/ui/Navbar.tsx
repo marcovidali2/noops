@@ -13,7 +13,10 @@ const Navbar = () => {
                         isActive ? (
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button variant="ghost">
+                                    <Button
+                                        variant="ghost"
+                                        className="bg-accent"
+                                    >
                                         <IoHome />
                                     </Button>
                                 </TooltipTrigger>
@@ -40,7 +43,10 @@ const Navbar = () => {
                         isActive ? (
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button variant="ghost">
+                                    <Button
+                                        variant="ghost"
+                                        className="bg-accent"
+                                    >
                                         <IoAdd />
                                     </Button>
                                 </TooltipTrigger>
