@@ -1,5 +1,12 @@
+import PostsList from "@/features/posts/PostsList";
+import HorizontallyCentered from "@/ui/HorizontallyCentered";
+
 const Home = () => {
-    return <h1>home</h1>;
+    return (
+        <HorizontallyCentered>
+            <PostsList />
+        </HorizontallyCentered>
+    );
 };
 
 export default Home;

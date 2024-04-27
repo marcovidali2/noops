@@ -5,7 +5,7 @@ import { toast } from "sonner";
 export const useJoin = () => {
     const { mutate: join, isPending: isLoading } = useMutation({
         mutationFn: (email: string) => apiJoin(email),
-        onSuccess: () => toast.success("a verification email was sent to you"),
+        onSuccess: () => toast.info("a verification email was sent to you"),
         onError: () => toast.error("an error occurred while joining"),
     });
 

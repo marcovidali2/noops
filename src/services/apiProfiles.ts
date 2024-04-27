@@ -19,7 +19,7 @@ export const getProfile = async (id: string) => {
         .eq("id", id);
 
     if (error) throw new Error(error.message);
-    return profile.length > 0 ? profile : null;
+    return profile;
 };
 
 export const getUsernames = async () => {

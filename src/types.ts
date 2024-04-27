@@ -14,7 +14,7 @@ export type Database = {
                     code: string | null;
                     content: string | null;
                     createdAt: string;
-                    creatorId: string;
+                    creator: string;
                     id: string;
                     image: string | null;
                     title: string | null;
@@ -23,7 +23,7 @@ export type Database = {
                     code?: string | null;
                     content?: string | null;
                     createdAt?: string;
-                    creatorId?: string;
+                    creator?: string;
                     id: string;
                     image?: string | null;
                     title?: string | null;
@@ -32,15 +32,15 @@ export type Database = {
                     code?: string | null;
                     content?: string | null;
                     createdAt?: string;
-                    creatorId?: string;
+                    creator?: string;
                     id?: string;
                     image?: string | null;
                     title?: string | null;
                 };
                 Relationships: [
                     {
-                        foreignKeyName: "posts_creatorId_fkey";
-                        columns: ["creatorId"];
+                        foreignKeyName: "posts_creator_fkey";
+                        columns: ["creator"];
                         isOneToOne: false;
                         referencedRelation: "users";
                         referencedColumns: ["id"];

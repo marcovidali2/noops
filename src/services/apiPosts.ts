@@ -14,3 +14,13 @@ export const uploadImage = async (image: File) => {
     if (error) throw new Error(error.message);
     return data;
 };
+
+export const getAllPosts = async () => {
+    const { data: posts, error } = await supabase
+        .from("posts")
+        .select("*, creator(*)")
+        .order("createdAt", { ascending: false });
+
+    if (error) throw new Error(error.message);
+    return posts;
+};
