@@ -22,7 +22,7 @@ import {
     SelectValue,
 } from "@/ui/select";
 
-const programmingLanguages = [
+const languages = [
     "javascript",
     "python",
     "java",
@@ -124,16 +124,14 @@ const WelcomeFavoriteLanguageForm = () => {
                                         <SelectLabel>
                                             programming languages
                                         </SelectLabel>
-                                        {programmingLanguages.map(
-                                            (language) => (
-                                                <SelectItem
-                                                    value={language}
-                                                    key={language}
-                                                >
-                                                    {language}
-                                                </SelectItem>
-                                            ),
-                                        )}
+                                        {languages.map((language) => (
+                                            <SelectItem
+                                                value={language}
+                                                key={language}
+                                            >
+                                                {language}
+                                            </SelectItem>
+                                        ))}
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>

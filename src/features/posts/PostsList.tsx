@@ -66,7 +66,7 @@ const PostsList = () => {
                             <CardContent className="text-sm sm:text-base">
                                 <CodeBlock
                                     code={post.code}
-                                    language="javascript"
+                                    language={post.language ?? ""}
                                 >
                                     <CodeBlock.Code className="rounded-xl bg-primary-foreground p-6 shadow-lg">
                                         <CodeBlock.LineContent className="overflow-scroll">

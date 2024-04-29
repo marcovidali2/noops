@@ -1,14 +1,7 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/ui/form";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import { Textarea } from "@/ui/textarea";
@@ -16,6 +9,15 @@ import { useCreatePost } from "./useCreatePost";
 import { useUploadImage } from "./useUploadImage";
 import { IoReload } from "react-icons/io5";
 import { Tables } from "@/types";
+import { Select, SelectItem } from "@/ui/select";
+import {
+    SelectContent,
+    SelectGroup,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/ui/select";
+import { languages } from "@/consts";
 
 const IMAGES_BUCKET_URL = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/images/`;
 
@@ -24,11 +26,12 @@ const formSchema = z
         title: z.string(),
         content: z.string(),
         code: z.string(),
+        language: z.string(),
         image: z.instanceof(FileList),
     })
     .partial()
     .refine((data) => data.content || data.code || data.image!.length > 0, {
-        message: "at least one field (apart from the title) must be filled in",
+        message: "a content, code or image is required",
         path: ["content", "code", "image"],
     });
 
@@ -124,6 +127,39 @@ const CreateForm = () => {
 
                 <FormField
                     control={form.control}
+                    name="language"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>language (optional)</FormLabel>
+                            <FormControl>
+                                <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="select the code language" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            <SelectLabel>languages</SelectLabel>
+                                            {languages.map((language) => (
+                                                <SelectItem
+                                                    key={language}
+                                                    value={language}
+                                                >
+                                                    {language}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </FormControl>
+                        </FormItem>
+                    )}
+                ></FormField>
+
+                <FormField
+                    control={form.control}
                     name="image"
                     render={() => (
                         <FormItem>
@@ -140,17 +176,14 @@ const CreateForm = () => {
                     )}
                 ></FormField>
 
-                <FormMessage />
-
                 <Button
                     type="submit"
                     className="w-full"
                     disabled={isLoadingPost || isLoadingImage}
                 >
-                    {isLoadingPost ||
-                        (isLoadingImage && (
-                            <IoReload className="mr-2 h-4 w-4 animate-spin" />
-                        ))}
+                    {(isLoadingPost || isLoadingImage) && (
+                        <IoReload className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     create()
                 </Button>
             </form>
