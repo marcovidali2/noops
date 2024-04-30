@@ -110,6 +110,8 @@ const CreateForm = () => {
 
     return (
         <div className="space-y-4">
+            <h1>create a post</h1>
+
             <div className="flex flex-col gap-2">
                 <label className="flex items-center gap-2">
                     <Switch
