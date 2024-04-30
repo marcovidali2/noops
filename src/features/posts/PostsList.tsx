@@ -24,7 +24,9 @@ const PostsList = () => {
     );
 
     return (
-        <div className="w-full p-4 sm:w-[36rem]">
+        <div className="w-full space-y-4 p-4 sm:w-[36rem]">
+            <h1>posts</h1>
+
             <div className="flex flex-col gap-4">
                 {posts?.map((post) => (
                     <Card key={post.id} className="w-full">
