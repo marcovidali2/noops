@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,6 +19,9 @@ import {
     SelectValue,
 } from "@/ui/select";
 import { languages } from "@/consts";
+import { Switch } from "@/ui/switch";
+
+type FieldTypes = "title" | "content" | "code" | "language" | "image";
 
 const IMAGES_BUCKET_URL = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/images/`;
 
@@ -29,24 +33,61 @@ const formSchema = z
         language: z.string(),
         image: z.instanceof(FileList),
     })
-    .partial()
-    .refine((data) => data.content || data.code || data.image!.length > 0, {
-        message: "a content, code or image is required",
-        path: ["content", "code", "image"],
-    });
+    .partial();
 
 const CreateForm = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+            title: undefined,
+            content: undefined,
+            code: undefined,
+            language: undefined,
+            image: undefined,
+        },
     });
     const imageRef = form.register("image");
     const { createPost, isLoading: isLoadingPost } = useCreatePost();
     const { uploadImage, isLoading: isLoadingImage } = useUploadImage();
+    const [showTitleContent, setShowTitleContent] = useState(false);
+    const [showCode, setShowCode] = useState(false);
+    const [showImage, setShowImage] = useState(false);
+
+    const toggleTitleContent = () => {
+        setShowTitleContent(!showTitleContent);
+    };
+
+    const toggleCode = () => {
+        setShowCode(!showCode);
+    };
+
+    const toggleImage = () => {
+        setShowImage(!showImage);
+    };
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        const { image } = values;
+        const { title, content, code, language, image } = values;
 
-        if (image!.length > 0)
+        // handling not filled fileds
+        const errorFields: FieldTypes[] = [];
+
+        if (showTitleContent && !title) errorFields.push("title");
+        if (showTitleContent && !content) errorFields.push("content");
+        if (showCode && !code) errorFields.push("code");
+        if (showCode && !language) errorFields.push("language");
+        if (showImage && !image) errorFields.push("image");
+
+        if (errorFields.length > 0) {
+            for (const field of errorFields) {
+                form.setError(field, {});
+            }
+
+            return;
+        }
+
+        // if image, upload it
+
+        if (showImage)
             uploadImage(image![0], {
                 onSuccess: (data) => {
                     const post = {
@@ -68,126 +109,181 @@ const CreateForm = () => {
     };
 
     return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField
-                    control={form.control}
-                    name="title"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>title (optional)</FormLabel>
-                            <FormControl>
-                                <Input
-                                    placeholder="about javascript additions"
-                                    disabled={isLoadingPost || isLoadingImage}
-                                    {...field}
-                                />
-                            </FormControl>
-                        </FormItem>
-                    )}
-                ></FormField>
+        <div className="space-y-4">
+            <div className="flex flex-col gap-2">
+                <label className="flex items-center gap-2">
+                    <Switch
+                        checked={showTitleContent}
+                        onCheckedChange={toggleTitleContent}
+                    />
+                    title and content
+                </label>
+                <label className="flex items-center gap-2">
+                    <Switch checked={showCode} onCheckedChange={toggleCode} />
+                    code
+                </label>
+                <label className="flex items-center gap-2">
+                    <Switch checked={showImage} onCheckedChange={toggleImage} />
+                    image
+                </label>
+            </div>
 
-                <FormField
-                    control={form.control}
-                    name="content"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>content (optional)</FormLabel>
-                            <FormControl>
-                                <Textarea
-                                    className="resize-none"
-                                    placeholder="did you know that 0.1 + 0.2 is equal to 0.3...4? why is javascript so bad?"
-                                    rows={10}
-                                    disabled={isLoadingPost || isLoadingImage}
-                                    {...field}
-                                />
-                            </FormControl>
-                        </FormItem>
-                    )}
-                ></FormField>
-
-                <FormField
-                    control={form.control}
-                    name="code"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>code (optional)</FormLabel>
-                            <FormControl>
-                                <Textarea
-                                    className="resize-none"
-                                    placeholder="console.log(0.1 + 0.2);"
-                                    rows={10}
-                                    disabled={isLoadingPost || isLoadingImage}
-                                    {...field}
-                                />
-                            </FormControl>
-                        </FormItem>
-                    )}
-                ></FormField>
-
-                <FormField
-                    control={form.control}
-                    name="language"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>language (optional)</FormLabel>
-                            <FormControl>
-                                <Select
-                                    onValueChange={field.onChange}
-                                    defaultValue={field.value}
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="select the code language" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectLabel>languages</SelectLabel>
-                                            {languages.map((language) => (
-                                                <SelectItem
-                                                    key={language}
-                                                    value={language}
-                                                >
-                                                    {language}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                            </FormControl>
-                        </FormItem>
-                    )}
-                ></FormField>
-
-                <FormField
-                    control={form.control}
-                    name="image"
-                    render={() => (
-                        <FormItem>
-                            <FormLabel>image (optional)</FormLabel>
-                            <FormControl>
-                                <Input
-                                    type="file"
-                                    accept="image/png, image/jpeg"
-                                    disabled={isLoadingPost || isLoadingImage}
-                                    {...imageRef}
-                                />
-                            </FormControl>
-                        </FormItem>
-                    )}
-                ></FormField>
-
-                <Button
-                    type="submit"
-                    className="w-full"
-                    disabled={isLoadingPost || isLoadingImage}
+            <Form {...form}>
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-4"
                 >
-                    {(isLoadingPost || isLoadingImage) && (
-                        <IoReload className="mr-2 h-4 w-4 animate-spin" />
+                    {showTitleContent && (
+                        <FormField
+                            control={form.control}
+                            name="title"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>title</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            placeholder="javascript sucks"
+                                            type="text"
+                                            disabled={
+                                                isLoadingPost || isLoadingImage
+                                            }
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        ></FormField>
                     )}
-                    create()
-                </Button>
-            </form>
-        </Form>
+
+                    {showTitleContent && (
+                        <FormField
+                            control={form.control}
+                            name="content"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>content</FormLabel>
+                                    <FormControl>
+                                        <Textarea
+                                            className="resize-none"
+                                            placeholder="did you know that 0.1 + 0.2 is equal to 0.3...4? why is javascript so bad?"
+                                            rows={10}
+                                            disabled={
+                                                isLoadingPost || isLoadingImage
+                                            }
+                                            {...field}
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        ></FormField>
+                    )}
+
+                    {showCode && (
+                        <>
+                            <FormField
+                                control={form.control}
+                                name="code"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>code</FormLabel>
+                                        <FormControl>
+                                            <Textarea
+                                                className="resize-none"
+                                                placeholder="console.log(0.1 + 0.2);"
+                                                rows={10}
+                                                disabled={
+                                                    isLoadingPost ||
+                                                    isLoadingImage
+                                                }
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            ></FormField>
+
+                            <FormField
+                                control={form.control}
+                                name="language"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>language</FormLabel>
+                                        <FormControl>
+                                            <Select
+                                                onValueChange={field.onChange}
+                                                defaultValue={field.value}
+                                            >
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="select the code language" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    <SelectGroup>
+                                                        <SelectLabel>
+                                                            languages
+                                                        </SelectLabel>
+                                                        {languages.map(
+                                                            (language) => (
+                                                                <SelectItem
+                                                                    key={
+                                                                        language
+                                                                    }
+                                                                    value={
+                                                                        language
+                                                                    }
+                                                                >
+                                                                    {language}
+                                                                </SelectItem>
+                                                            ),
+                                                        )}
+                                                    </SelectGroup>
+                                                </SelectContent>
+                                            </Select>
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            ></FormField>
+                        </>
+                    )}
+
+                    {showImage && (
+                        <FormField
+                            control={form.control}
+                            name="image"
+                            render={() => (
+                                <FormItem>
+                                    <FormLabel>image</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            type="file"
+                                            accept="image/png, image/jpeg"
+                                            disabled={
+                                                isLoadingPost || isLoadingImage
+                                            }
+                                            {...imageRef}
+                                        />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        ></FormField>
+                    )}
+
+                    <Button
+                        type="submit"
+                        className="w-full"
+                        disabled={
+                            isLoadingPost ||
+                            isLoadingImage ||
+                            (!showTitleContent && !showCode && !showImage)
+                        }
+                    >
+                        {(isLoadingPost || isLoadingImage) && (
+                            <IoReload className="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        create()
+                    </Button>
+                </form>
+            </Form>
+        </div>
     );
 };
 
