@@ -19,12 +19,12 @@ import {
     SelectValue,
 } from "@/ui/select";
 import { languages } from "@/consts";
-import { Switch } from "@/ui/switch";
 
-type FieldTypes = "title" | "content" | "code" | "language" | "image";
+import SwitchWrapper from "@/ui/SwitchWrapper";
 
 const IMAGES_BUCKET_URL = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/images/`;
 
+type FieldTypes = "title" | "content" | "code" | "language" | "image";
 const formSchema = z
     .object({
         title: z.string(),
@@ -39,16 +39,20 @@ const CreateForm = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            title: undefined,
-            content: undefined,
-            code: undefined,
-            language: undefined,
-            image: undefined,
+            title: "",
+            content: "",
+            code: "",
+            language: "",
+            image: new FileList(),
         },
     });
+
     const imageRef = form.register("image");
+
     const { createPost, isLoading: isLoadingPost } = useCreatePost();
     const { uploadImage, isLoading: isLoadingImage } = useUploadImage();
+    const isLoading = isLoadingPost || isLoadingImage;
+
     const [showTitleContent, setShowTitleContent] = useState(false);
     const [showCode, setShowCode] = useState(false);
     const [showImage, setShowImage] = useState(false);
@@ -86,7 +90,6 @@ const CreateForm = () => {
         }
 
         // if image, upload it
-
         if (showImage)
             uploadImage(image![0], {
                 onSuccess: (data) => {
@@ -101,7 +104,7 @@ const CreateForm = () => {
         else {
             const post = {
                 ...values,
-                image: "",
+                image: null,
             };
 
             createPost(post as Tables<"posts">);
@@ -112,22 +115,22 @@ const CreateForm = () => {
         <div className="space-y-4">
             <h1>create a post</h1>
 
-            <div className="flex flex-col gap-2">
-                <label className="flex items-center gap-2">
-                    <Switch
-                        checked={showTitleContent}
-                        onCheckedChange={toggleTitleContent}
-                    />
+            <div className="space-y-2">
+                <SwitchWrapper
+                    checked={showTitleContent}
+                    onCheckedChange={toggleTitleContent}
+                >
                     title and content
-                </label>
-                <label className="flex items-center gap-2">
-                    <Switch checked={showCode} onCheckedChange={toggleCode} />
+                </SwitchWrapper>
+                <SwitchWrapper checked={showCode} onCheckedChange={toggleCode}>
                     code
-                </label>
-                <label className="flex items-center gap-2">
-                    <Switch checked={showImage} onCheckedChange={toggleImage} />
+                </SwitchWrapper>
+                <SwitchWrapper
+                    checked={showImage}
+                    onCheckedChange={toggleImage}
+                >
                     image
-                </label>
+                </SwitchWrapper>
             </div>
 
             <Form {...form}>
@@ -146,9 +149,7 @@ const CreateForm = () => {
                                         <Input
                                             placeholder="javascript sucks"
                                             type="text"
-                                            disabled={
-                                                isLoadingPost || isLoadingImage
-                                            }
+                                            disabled={isLoading}
                                             {...field}
                                         />
                                     </FormControl>
@@ -169,9 +170,7 @@ const CreateForm = () => {
                                             className="resize-none"
                                             placeholder="did you know that 0.1 + 0.2 is equal to 0.3...4? why is javascript so bad?"
                                             rows={10}
-                                            disabled={
-                                                isLoadingPost || isLoadingImage
-                                            }
+                                            disabled={isLoading}
                                             {...field}
                                         />
                                     </FormControl>
@@ -258,9 +257,7 @@ const CreateForm = () => {
                                         <Input
                                             type="file"
                                             accept="image/png, image/jpeg"
-                                            disabled={
-                                                isLoadingPost || isLoadingImage
-                                            }
+                                            disabled={isLoading}
                                             {...imageRef}
                                         />
                                     </FormControl>
@@ -278,7 +275,7 @@ const CreateForm = () => {
                             (!showTitleContent && !showCode && !showImage)
                         }
                     >
-                        {(isLoadingPost || isLoadingImage) && (
+                        {isLoading && (
                             <IoReload className="mr-2 h-4 w-4 animate-spin" />
                         )}
                         create()

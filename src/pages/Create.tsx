@@ -4,9 +4,7 @@ import HorizontallyCentered from "@/ui/HorizontallyCentered";
 const Create = () => {
     return (
         <HorizontallyCentered>
-            <div className="w-[32rem]">
-                <CreateForm />
-            </div>
+            <CreateForm />
         </HorizontallyCentered>
     );
 };

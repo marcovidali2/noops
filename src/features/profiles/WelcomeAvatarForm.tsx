@@ -29,6 +29,9 @@ const WelcomeAvatarForm = () => {
     const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+            avatar: "",
+        },
     });
 
     const avatarRef = form.register("avatar");

@@ -24,6 +24,9 @@ const WelcomeBioForm = () => {
     const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+            bio: "",
+        },
     });
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
