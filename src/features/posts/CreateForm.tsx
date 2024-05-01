@@ -79,7 +79,7 @@ const CreateForm = () => {
         if (showTitleContent && !content) errorFields.push("content");
         if (showCode && !code) errorFields.push("code");
         if (showCode && !language) errorFields.push("language");
-        if (showImage && !image) errorFields.push("image");
+        if (showImage && image!.length === 0) errorFields.push("image");
 
         if (errorFields.length > 0) {
             for (const field of errorFields) {
