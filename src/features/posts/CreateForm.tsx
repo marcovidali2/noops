@@ -43,7 +43,7 @@ const CreateForm = () => {
             content: "",
             code: "",
             language: "",
-            image: new FileList(),
+            image: undefined,
         },
     });
 
