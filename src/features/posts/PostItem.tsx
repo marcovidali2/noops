@@ -3,11 +3,14 @@ import {
     Card,
     CardContent,
     CardDescription,
+    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/ui/card";
 import { Avatar, AvatarImage } from "@/ui/avatar";
 import { CodeBlock } from "react-code-block";
+import { Button } from "@/ui/button";
+import { IoHeartOutline } from "react-icons/io5";
 
 interface PropTypes {
     post: Tables<"posts">;
@@ -78,6 +81,17 @@ const PostItem = ({ post }: PropTypes) => {
                     )}
                 </CardContent>
             )}
+
+            <CardFooter className="flex justify-between">
+                <Button variant="outline" className="space-x-2 rounded-full">
+                    <IoHeartOutline />
+                    <span>64</span>
+                </Button>
+
+                <Button variant="outline" className="rounded-full">
+                    view full post
+                </Button>
+            </CardFooter>
         </Card>
     );
 };
