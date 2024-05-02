@@ -10,7 +10,7 @@ const PostsList = () => {
             <h1>posts</h1>
 
             <div className="flex flex-col gap-4">
-                {posts?.map((post) => <PostItem post={post} />)}
+                {posts?.map((post) => <PostItem key={post.id} post={post} />)}
             </div>
         </div>
     );
