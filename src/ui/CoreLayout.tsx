@@ -11,7 +11,7 @@ const CoreLayout = () => {
                 <div className="flex h-dvh flex-col-reverse sm:flex-row">
                     <Navbar />
 
-                    <div className="grow overflow-scroll p-4">
+                    <div className="grow overflow-scroll">
                         <Outlet />
                     </div>
                 </div>

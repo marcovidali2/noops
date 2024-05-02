@@ -1,6 +1,6 @@
 import UserProtectedRoute from "@/features/users/UserProtectedRoute";
 import WelcomeAvatarForm from "@/features/profiles/WelcomeAvatarForm";
-import FullPageForm from "@/ui/FullPageForm";
+import FullPageForm from "@/ui/ResponsiveForm";
 
 const WelcomeAvatar = () => {
     return (

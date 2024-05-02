@@ -1,6 +1,6 @@
 import UserProtectedRoute from "@/features/users/UserProtectedRoute";
 import WelcomeNameForm from "@/features/profiles/WelcomeNameForm";
-import FullPageForm from "@/ui/FullPageForm";
+import FullPageForm from "@/ui/ResponsiveForm";
 
 const WelcomeName = () => {
     return (
