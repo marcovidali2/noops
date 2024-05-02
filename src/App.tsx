@@ -7,11 +7,10 @@ import { Suspense, lazy } from "react";
 import AppLayout from "./AppLayout";
 import FullPageSpinner from "./ui/FullPageSpinner";
 import CoreLayout from "./ui/CoreLayout";
+import Posts from "./pages/Posts";
+import Create from "./pages/Create";
 
 const queryClient = new QueryClient();
-
-const Home = lazy(() => import("./pages/Home"));
-const Create = lazy(() => import("./pages/Create"));
 
 const Join = lazy(() => import("./pages/Join"));
 
@@ -37,7 +36,7 @@ const App = () => {
                         <Routes>
                             <Route element={<AppLayout />}>
                                 <Route element={<CoreLayout />}>
-                                    <Route index element={<Home />} />
+                                    <Route index element={<Posts />} />
                                     <Route
                                         path="/create"
                                         element={<Create />}

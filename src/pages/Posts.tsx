@@ -5,7 +5,7 @@ import FullPageSpinner from "@/ui/FullPageSpinner";
 import HorizontallyCentered from "@/ui/HorizontallyCentered";
 import ResponsiveCore from "@/ui/ResponsiveCore";
 
-const Home = () => {
+const Posts = () => {
     const { isLoading } = usePosts();
 
     if (isLoading) return <FullPageSpinner />;
@@ -19,4 +19,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Posts;

@@ -1,6 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { Button } from "./button";
-import { IoAdd, IoAddOutline, IoHome, IoHomeOutline } from "react-icons/io5";
+import {
+    IoAdd,
+    IoAddOutline,
+    IoDocument,
+    IoDocumentOutline,
+} from "react-icons/io5";
 import { Tooltip, TooltipProvider } from "./tooltip";
 import { TooltipContent, TooltipTrigger } from "./tooltip";
 
@@ -17,22 +22,22 @@ const Navbar = () => {
                                         variant="ghost"
                                         className="bg-accent"
                                     >
-                                        <IoHome />
+                                        <IoDocument />
                                     </Button>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>home</p>
+                                    <p>posts</p>
                                 </TooltipContent>
                             </Tooltip>
                         ) : (
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Button variant="ghost">
-                                        <IoHomeOutline />
+                                        <IoDocumentOutline />
                                     </Button>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>home</p>
+                                    <p>posts</p>
                                 </TooltipContent>
                             </Tooltip>
                         )
