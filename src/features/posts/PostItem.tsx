@@ -55,26 +55,28 @@ const PostItem = ({ post }: PropTypes) => {
                 )}
             </CardHeader>
 
-            {post.code && (
-                <CardContent>
-                    <CodeBlock
-                        code={truncateCode(post.code)}
-                        language={post.language ?? ""}
-                    >
-                        <CodeBlock.Code className="rounded-xl bg-primary-foreground p-6 shadow-lg">
-                            <CodeBlock.LineContent className="overflow-scroll">
-                                <CodeBlock.Token />
-                            </CodeBlock.LineContent>
-                        </CodeBlock.Code>
-                    </CodeBlock>
-                </CardContent>
-            )}
+            {(post.code || post.image) && (
+                <CardContent className="space-y-4">
+                    {post.code && (
+                        <CodeBlock
+                            code={truncateCode(post.code)}
+                            language={post.language ?? ""}
+                        >
+                            <CodeBlock.Code className="rounded-xl bg-primary-foreground p-6 shadow-lg">
+                                <CodeBlock.LineContent className="overflow-scroll">
+                                    <CodeBlock.Token />
+                                </CodeBlock.LineContent>
+                            </CodeBlock.Code>
+                        </CodeBlock>
+                    )}
 
-            {post.image && (
-                <img
-                    src={post.image}
-                    className="h-[38rem] w-full rounded-b-lg object-cover"
-                />
+                    {post.image && (
+                        <img
+                            src={post.image}
+                            className="h-[38rem] w-full rounded-lg object-cover"
+                        />
+                    )}
+                </CardContent>
             )}
         </Card>
     );
