@@ -5,7 +5,7 @@ import FullPageCentered from "./FullPageCentered";
 const ResponsiveForm = ({ children }: PropsWithChildren) => {
     return (
         <FullPageCentered>
-            <div className="w-full p-4 sm:w-[32rem]">{children}</div>
+            <div className="w-full p-4 sm:w-[42rem]">{children}</div>
         </FullPageCentered>
     );
 };
