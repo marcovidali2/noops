@@ -1,11 +1,11 @@
 import JoinForm from "@/features/users/JoinForm";
-import FullPageForm from "@/ui/ResponsiveForm";
+import ResponsiveForm from "@/ui/ResponsiveForm";
 
 const Join = () => {
     return (
-        <FullPageForm>
+        <ResponsiveForm>
             <JoinForm />
-        </FullPageForm>
+        </ResponsiveForm>
     );
 };
 

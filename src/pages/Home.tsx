@@ -3,6 +3,7 @@ import { usePosts } from "@/features/posts/usePosts";
 import PostsList from "@/features/posts/PostsList";
 import FullPageSpinner from "@/ui/FullPageSpinner";
 import HorizontallyCentered from "@/ui/HorizontallyCentered";
+import ResponsiveCore from "@/ui/ResponsiveCore";
 
 const Home = () => {
     const { isLoading } = usePosts();
@@ -11,7 +12,9 @@ const Home = () => {
 
     return (
         <HorizontallyCentered>
-            <PostsList />
+            <ResponsiveCore>
+                <PostsList />
+            </ResponsiveCore>
         </HorizontallyCentered>
     );
 };

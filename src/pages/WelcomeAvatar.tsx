@@ -1,13 +1,13 @@
 import UserProtectedRoute from "@/features/users/UserProtectedRoute";
 import WelcomeAvatarForm from "@/features/profiles/WelcomeAvatarForm";
-import FullPageForm from "@/ui/ResponsiveForm";
+import ResponsiveForm from "@/ui/ResponsiveForm";
 
 const WelcomeAvatar = () => {
     return (
         <UserProtectedRoute>
-            <FullPageForm>
+            <ResponsiveForm>
                 <WelcomeAvatarForm />
-            </FullPageForm>
+            </ResponsiveForm>
         </UserProtectedRoute>
     );
 };

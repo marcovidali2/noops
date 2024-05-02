@@ -1,13 +1,13 @@
 import UserProtectedRoute from "@/features/users/UserProtectedRoute";
 import WelcomeBioForm from "@/features/profiles/WelcomeBioForm";
-import FullPageForm from "@/ui/ResponsiveForm";
+import ResponsiveForm from "@/ui/ResponsiveForm";
 
 const WelcomeName = () => {
     return (
         <UserProtectedRoute>
-            <FullPageForm>
+            <ResponsiveForm>
                 <WelcomeBioForm />
-            </FullPageForm>
+            </ResponsiveForm>
         </UserProtectedRoute>
     );
 };

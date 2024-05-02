@@ -2,7 +2,7 @@ import { useUsernames } from "@/features/profiles/useUsernames";
 
 import UserProtectedRoute from "@/features/users/UserProtectedRoute";
 import WelcomeUsernameForm from "@/features/profiles/WelcomeUsernameForm";
-import FullPageForm from "@/ui/ResponsiveForm";
+import ResponsiveForm from "@/ui/ResponsiveForm";
 import FullPageSpinner from "@/ui/FullPageSpinner";
 
 const WelcomeUsername = () => {
@@ -12,9 +12,9 @@ const WelcomeUsername = () => {
 
     return (
         <UserProtectedRoute>
-            <FullPageForm>
+            <ResponsiveForm>
                 <WelcomeUsernameForm />
-            </FullPageForm>
+            </ResponsiveForm>
         </UserProtectedRoute>
     );
 };

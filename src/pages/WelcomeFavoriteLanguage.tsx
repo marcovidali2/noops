@@ -1,13 +1,13 @@
 import UserProtectedRoute from "@/features/users/UserProtectedRoute";
 import WelcomeFavoriteLanguageForm from "@/features/profiles/WelcomeFavoriteLanguageForm";
-import FullPageForm from "@/ui/ResponsiveForm";
+import ResponsiveForm from "@/ui/ResponsiveForm";
 
 const WelcomeFavoriteLanguage = () => {
     return (
         <UserProtectedRoute>
-            <FullPageForm>
+            <ResponsiveForm>
                 <WelcomeFavoriteLanguageForm />
-            </FullPageForm>
+            </ResponsiveForm>
         </UserProtectedRoute>
     );
 };
