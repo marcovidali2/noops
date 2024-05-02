@@ -31,12 +31,12 @@ const PostItem = ({ post }: PropTypes) => {
                     <div className="flex items-center gap-4">
                         <Avatar>
                             <AvatarImage
-                                src={post.creator.avatar}
-                                alt={post.creator.name}
+                                src={post.profile.avatar}
+                                alt={post.profile.name}
                             />
                         </Avatar>
 
-                        <span>{post.creator.name}</span>
+                        <span>{post.profile.name}</span>
                     </div>
 
                     <span className="text-muted-foreground">

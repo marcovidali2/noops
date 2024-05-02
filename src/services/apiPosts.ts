@@ -18,7 +18,7 @@ export const uploadImage = async (image: File) => {
 export const getAllPosts = async () => {
     const { data: posts, error } = await supabase
         .from("posts")
-        .select("*, creator(*)")
+        .select("*, profile(*)")
         .order("createdAt", { ascending: false });
 
     if (error) throw new Error(error.message);

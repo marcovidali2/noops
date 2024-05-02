@@ -12,11 +12,11 @@ export const uploadAvatar = async (file: File) => {
     if (error) throw new Error(error.message);
     return data;
 };
-export const getProfile = async (id: string) => {
+export const getProfile = async (userId: string) => {
     const { data: profile, error } = await supabase
         .from("profiles")
         .select("*")
-        .eq("id", id);
+        .eq("user", userId);
 
     if (error) throw new Error(error.message);
     return profile;
