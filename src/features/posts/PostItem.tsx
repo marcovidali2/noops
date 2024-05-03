@@ -10,7 +10,7 @@ import {
 import { Avatar, AvatarImage } from "@/ui/avatar";
 import { CodeBlock } from "react-code-block";
 import { Button } from "@/ui/button";
-import { IoHeartOutline } from "react-icons/io5";
+
 import LikesButton from "../likes/LikesButton";
 
 interface PropTypes {

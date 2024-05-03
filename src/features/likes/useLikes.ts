@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-export const useLikes = (postId: string) => {
+export const useLikes = (postId: number) => {
     const {
         data: likes,
         isLoading,
