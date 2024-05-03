@@ -11,6 +11,7 @@ import { Avatar, AvatarImage } from "@/ui/avatar";
 import { CodeBlock } from "react-code-block";
 import { Button } from "@/ui/button";
 import { IoHeartOutline } from "react-icons/io5";
+import LikesButton from "../likes/LikesButton";
 
 interface PropTypes {
     post: Tables<"posts">;
@@ -83,10 +84,7 @@ const PostItem = ({ post }: PropTypes) => {
             )}
 
             <CardFooter className="flex justify-between">
-                <Button variant="outline" className="space-x-2 rounded-full">
-                    <IoHeartOutline />
-                    <span>64</span>
-                </Button>
+                <LikesButton postId={post.id} />
 
                 <Button variant="outline" className="rounded-full">
                     view full post

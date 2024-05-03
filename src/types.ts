@@ -9,51 +9,77 @@ export type Json =
 export type Database = {
     public: {
         Tables: {
+            likes: {
+                Row: {
+                    id: number;
+                    post: number;
+                    profile: string;
+                };
+                Insert: {
+                    id?: number;
+                    post: number;
+                    profile: string;
+                };
+                Update: {
+                    id?: number;
+                    post?: number;
+                    profile?: string;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "likes_post_fkey";
+                        columns: ["post"];
+                        isOneToOne: false;
+                        referencedRelation: "likes";
+                        referencedColumns: ["id"];
+                    },
+                    {
+                        foreignKeyName: "likes_profile_fkey";
+                        columns: ["profile"];
+                        isOneToOne: false;
+                        referencedRelation: "profiles";
+                        referencedColumns: ["user"];
+                    },
+                ];
+            };
             posts: {
                 Row: {
                     code: string | null;
                     content: string | null;
                     createdAt: string;
-                    creator: string;
-                    id: string;
+                    id: number;
                     image: string | null;
                     language: string | null;
+                    profile: string;
                     title: string | null;
                 };
                 Insert: {
                     code?: string | null;
                     content?: string | null;
                     createdAt?: string;
-                    creator?: string;
-                    id?: string;
+                    id?: number;
                     image?: string | null;
                     language?: string | null;
+                    profile?: string;
                     title?: string | null;
                 };
                 Update: {
                     code?: string | null;
                     content?: string | null;
                     createdAt?: string;
-                    creator?: string;
-                    id?: string;
+                    id?: number;
                     image?: string | null;
                     language?: string | null;
+                    profile?: string;
                     title?: string | null;
                 };
                 Relationships: [
                     {
-                        foreignKeyName: "posts_creator_fkey";
-                        columns: ["creator"];
-                        isOneToOne: false;
-                        referencedRelation: "users";
-                        referencedColumns: ["id"];
-                    },
-                    {
-                        foreignKeyName: "posts_creator_fkey1";
-                        columns: ["creator"];
+                        foreignKeyName: "posts_profile_fkey";
+                        columns: ["profile"];
                         isOneToOne: false;
                         referencedRelation: "profiles";
-                        referencedColumns: ["id"];
+                        referencedColumns: ["user"];
                     },
                 ];
             };
@@ -62,33 +88,33 @@ export type Database = {
                     avatar: string;
                     bio: string | null;
                     favoriteLanguage: string;
-                    id: string;
-                    joined_at: string;
+                    joinedAt: string;
                     name: string;
+                    user: string;
                     username: string;
                 };
                 Insert: {
                     avatar: string;
                     bio?: string | null;
                     favoriteLanguage: string;
-                    id?: string;
-                    joined_at?: string;
+                    joinedAt?: string;
                     name: string;
+                    user?: string;
                     username: string;
                 };
                 Update: {
                     avatar?: string;
                     bio?: string | null;
                     favoriteLanguage?: string;
-                    id?: string;
-                    joined_at?: string;
+                    joinedAt?: string;
                     name?: string;
+                    user?: string;
                     username?: string;
                 };
                 Relationships: [
                     {
-                        foreignKeyName: "profiles_id_fkey";
-                        columns: ["id"];
+                        foreignKeyName: "profiles_user_fkey";
+                        columns: ["user"];
                         isOneToOne: true;
                         referencedRelation: "users";
                         referencedColumns: ["id"];
