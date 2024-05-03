@@ -119,15 +119,21 @@ const CreateForm = () => {
                 <SwitchWrapper
                     checked={showTitleContent}
                     onCheckedChange={toggleTitleContent}
+                    disabled={isLoading}
                 >
                     title and content
                 </SwitchWrapper>
-                <SwitchWrapper checked={showCode} onCheckedChange={toggleCode}>
+                <SwitchWrapper
+                    checked={showCode}
+                    onCheckedChange={toggleCode}
+                    disabled={isLoading}
+                >
                     code
                 </SwitchWrapper>
                 <SwitchWrapper
                     checked={showImage}
                     onCheckedChange={toggleImage}
+                    disabled={isLoading}
                 >
                     image
                 </SwitchWrapper>
@@ -192,10 +198,7 @@ const CreateForm = () => {
                                                 className="resize-none"
                                                 placeholder="console.log(0.1 + 0.2);"
                                                 rows={10}
-                                                disabled={
-                                                    isLoadingPost ||
-                                                    isLoadingImage
-                                                }
+                                                disabled={isLoading}
                                                 {...field}
                                             />
                                         </FormControl>
@@ -213,6 +216,7 @@ const CreateForm = () => {
                                             <Select
                                                 onValueChange={field.onChange}
                                                 defaultValue={field.value}
+                                                disabled={isLoading}
                                             >
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="select the code language" />
@@ -270,8 +274,7 @@ const CreateForm = () => {
                         type="submit"
                         className="w-full"
                         disabled={
-                            isLoadingPost ||
-                            isLoadingImage ||
+                            isLoading ||
                             (!showTitleContent && !showCode && !showImage)
                         }
                     >
