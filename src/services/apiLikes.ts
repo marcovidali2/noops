@@ -23,3 +23,33 @@ export const hasLiked = async (postId: number) => {
     if (error) throw new Error(error.message);
     return data.length === 1;
 };
+
+export const toggleLike = async (postId: number) => {
+    const _hasLiked = await hasLiked(postId);
+    if (!_hasLiked) await addLike(postId);
+    else await removeLike(postId);
+};
+
+export const addLike = async (postId: number) => {
+    const user = await getUser();
+
+    const like = {
+        profile: user!.id,
+        post: postId,
+    };
+
+    const { error } = await supabase.from("likes").insert([like]);
+    if (error) throw new Error(error.message);
+};
+
+export const removeLike = async (postId: number) => {
+    const user = await getUser();
+
+    const { error } = await supabase
+        .from("likes")
+        .delete()
+        .eq("profile", user!.id)
+        .eq("post", postId);
+
+    if (error) throw new Error(error.message);
+};
