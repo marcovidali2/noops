@@ -30,7 +30,7 @@ const WelcomeAvatarForm = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            avatar: "",
+            avatar: undefined,
         },
     });
 

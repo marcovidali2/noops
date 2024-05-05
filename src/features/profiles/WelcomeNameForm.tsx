@@ -15,7 +15,9 @@ import { useProfileStore } from "./useProfileStore";
 import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
-    name: z.string(),
+    name: z.string().trim().min(1, {
+        message: "this field is required",
+    }),
 });
 
 const WelcomeNameForm = () => {

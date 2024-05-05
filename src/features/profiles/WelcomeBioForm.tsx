@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { Textarea } from "@/ui/textarea";
 
 const formSchema = z.object({
-    bio: z.string().optional(),
+    bio: z.string(),
 });
 
 const WelcomeBioForm = () => {

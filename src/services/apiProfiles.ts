@@ -19,7 +19,7 @@ export const getProfile = async (userId: string) => {
         .eq("user", userId);
 
     if (error) throw new Error(error.message);
-    return profile;
+    return profile.length === 1 ? profile[0] : null;
 };
 
 export const getUsernames = async () => {
@@ -42,7 +42,7 @@ export const createProfile = async (profile: Tables<"profiles">) => {
 
     const { error } = await supabase
         .from("profiles")
-        .upsert([profileSupabase], { onConflict: "id" });
+        .upsert([profileSupabase], { onConflict: "user" });
 
     if (error) throw new Error(error.message);
 };

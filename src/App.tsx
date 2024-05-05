@@ -8,10 +8,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AppLayout from "./AppLayout";
 import FullPageSpinner from "./ui/FullPageSpinner";
 import CoreLayout from "./ui/CoreLayout";
-import Posts from "./pages/Posts";
-import Create from "./pages/Create";
 
 const queryClient = new QueryClient();
+
+const Posts = lazy(() => import("./pages/Posts"));
+const Create = lazy(() => import("./pages/Create"));
 
 const Join = lazy(() => import("./pages/Join"));
 

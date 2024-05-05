@@ -84,7 +84,9 @@ const languages = [
 ];
 
 const formSchema = z.object({
-    favoriteLanguage: z.string(),
+    favoriteLanguage: z.string().trim().min(1, {
+        message: "this field is required",
+    }),
 });
 
 const WelcomeFavoriteLanguageForm = () => {

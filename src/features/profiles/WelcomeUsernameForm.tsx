@@ -16,7 +16,9 @@ import { useNavigate } from "react-router-dom";
 import { useUsernames } from "./useUsernames";
 
 const formSchema = z.object({
-    username: z.string(),
+    username: z.string().trim().min(1, {
+        message: "this field is required",
+    }),
 });
 
 const WelcomeUsernameForm = () => {

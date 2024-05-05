@@ -1,10 +1,13 @@
 import { useEffect } from "react";
 import { useProfileStore } from "./useProfileStore";
 import { useCreateProfile } from "./useCreateProfile";
+import { useNavigate } from "react-router-dom";
 
 import FullPageSpinner from "@/ui/FullPageSpinner";
 
 const WelcomeSubmitScript = () => {
+    const navigate = useNavigate();
+
     const { name, username, favoriteLanguage, bio, avatar } = useProfileStore();
     const { createProfile } = useCreateProfile();
 
@@ -19,8 +22,20 @@ const WelcomeSubmitScript = () => {
             avatar: avatar,
         };
 
-        createProfile(profile);
-    }, [name, username, favoriteLanguage, bio, avatar, createProfile]);
+        createProfile(profile, {
+            onSuccess: () => {
+                navigate("/");
+            },
+        });
+    }, [
+        name,
+        username,
+        favoriteLanguage,
+        bio,
+        avatar,
+        createProfile,
+        navigate,
+    ]);
 
     return <FullPageSpinner />;
 };
