@@ -13,8 +13,6 @@ const WelcomeSubmitScript = () => {
 
     useEffect(() => {
         const profile = {
-            id: "",
-            joined_at: "",
             name: name,
             username: username,
             favoriteLanguage: favoriteLanguage,
