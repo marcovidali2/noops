@@ -30,7 +30,7 @@ const truncateCode = (code: string) => {
 const PostItem = ({ post }: PropTypes) => {
     return (
         <Card key={post.id}>
-            <CardHeader>
+            <CardHeader className="space-y-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <Avatar>
