@@ -1,5 +1,6 @@
 import { Tables } from "@/types";
 import { supabase } from "./supabase";
+import { getUser } from "./apiUsers";
 
 export const createPost = async (post: Tables<"posts">) => {
     const { error } = await supabase.from("posts").insert([post]);
@@ -19,6 +20,19 @@ export const getAllPosts = async () => {
     const { data: posts, error } = await supabase
         .from("posts")
         .select("*, profile(*)")
+        .order("createdAt", { ascending: false });
+
+    if (error) throw new Error(error.message);
+    return posts;
+};
+
+export const getUserPosts = async () => {
+    const user = await getUser();
+
+    const { data: posts, error } = await supabase
+        .from("posts")
+        .select("*")
+        .eq("profile", user!.id)
         .order("createdAt", { ascending: false });
 
     if (error) throw new Error(error.message);

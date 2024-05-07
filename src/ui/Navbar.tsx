@@ -5,6 +5,8 @@ import {
     IoAddOutline,
     IoDocument,
     IoDocumentOutline,
+    IoPerson,
+    IoPersonOutline,
 } from "react-icons/io5";
 import { Tooltip, TooltipProvider } from "./tooltip";
 import { TooltipContent, TooltipTrigger } from "./tooltip";
@@ -68,6 +70,37 @@ const Navbar = () => {
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>create</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        )
+                    }
+                </NavLink>
+
+                <NavLink to="/profile">
+                    {({ isActive }) =>
+                        isActive ? (
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button
+                                        variant="ghost"
+                                        className="bg-accent"
+                                    >
+                                        <IoPerson />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>profile</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        ) : (
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button variant="ghost">
+                                        <IoPersonOutline />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>profile</p>
                                 </TooltipContent>
                             </Tooltip>
                         )

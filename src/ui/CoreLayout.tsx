@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 import ProfileProtectedRoute from "@/features/profiles/ProfileProtectedRoute";
 import UserProtectedRoute from "@/features/users/UserProtectedRoute";
 import Navbar from "./Navbar";
+import HorizontallyCentered from "./HorizontallyCentered";
+import ResponsiveCore from "./ResponsiveCore";
 
 const CoreLayout = () => {
     return (
@@ -12,7 +14,11 @@ const CoreLayout = () => {
                     <Navbar />
 
                     <div className="grow overflow-scroll">
-                        <Outlet />
+                        <HorizontallyCentered>
+                            <ResponsiveCore>
+                                <Outlet />
+                            </ResponsiveCore>
+                        </HorizontallyCentered>
                     </div>
                 </div>
             </ProfileProtectedRoute>
