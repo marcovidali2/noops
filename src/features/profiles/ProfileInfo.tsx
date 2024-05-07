@@ -17,21 +17,23 @@ const ProfileInfo = () => {
 
     return (
         <div className="space-y-4">
-            <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-6">
-                    <Avatar className="h-auto w-16">
-                        <AvatarImage src={profile.avatar} />
-                    </Avatar>
+            <div className="flex items-center space-x-6">
+                <Avatar className="h-auto w-16">
+                    <AvatarImage src={profile.avatar} />
+                </Avatar>
 
+                <div className="flex grow flex-col justify-between sm:flex-row">
                     <div className="space-x-4">
                         <span className="text-xl">{profile.name}</span>
                         <span className="text-xl text-muted-foreground">
                             {profile.username}
                         </span>
                     </div>
-                </div>
 
-                <Badge>{profile.favoriteLanguage}</Badge>
+                    <div>
+                        <Badge>{profile.favoriteLanguage}</Badge>
+                    </div>
+                </div>
             </div>
 
             <Alert>
