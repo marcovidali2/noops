@@ -14,6 +14,7 @@ const queryClient = new QueryClient();
 const Posts = lazy(() => import("./pages/Posts"));
 const Create = lazy(() => import("./pages/Create"));
 const Profile = lazy(() => import("./pages/Profile"));
+const Post = lazy(() => import("./pages/Post"));
 
 const Join = lazy(() => import("./pages/Join"));
 
@@ -51,6 +52,11 @@ const App = () => {
                                     <Route
                                         path="/profile"
                                         element={<Profile />}
+                                    />
+
+                                    <Route
+                                        path="/post/:postId"
+                                        element={<Post />}
                                     />
                                 </Route>
 

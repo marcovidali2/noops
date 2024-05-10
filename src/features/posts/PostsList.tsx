@@ -1,6 +1,7 @@
 import { usePosts } from "./usePosts";
 import { Alert, AlertDescription, AlertTitle } from "@/ui/alert";
 import { IoInformationCircleOutline } from "react-icons/io5";
+import { Tables } from "@/types";
 
 import PostItem from "./PostItem";
 
@@ -22,7 +23,9 @@ const PostsList = () => {
             )}
 
             <div className="flex flex-col gap-4">
-                {posts?.map((post) => <PostItem key={post.id} post={post} />)}
+                {posts?.map((post: Tables<"posts">) => (
+                    <PostItem key={post.id} post={post} />
+                ))}
             </div>
         </div>
     );

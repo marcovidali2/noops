@@ -38,3 +38,14 @@ export const getUserPosts = async () => {
     if (error) throw new Error(error.message);
     return posts;
 };
+
+export const getPost = async (postId: number) => {
+    const { data: post, error } = await supabase
+        .from("posts")
+        .select("*, profile(*)")
+        .eq("id", postId)
+        .single();
+
+    if (error) throw new Error(error.message);
+    return post;
+};

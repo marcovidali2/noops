@@ -10,8 +10,8 @@ interface ProfileState extends Tables<"profiles"> {
 }
 
 export const useProfileStore = create<ProfileState>((set) => ({
-    id: "",
-    joined_at: "",
+    user: "",
+    joinedAt: "",
     name: "",
     username: "",
     favoriteLanguage: "",

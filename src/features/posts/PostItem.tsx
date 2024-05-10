@@ -12,6 +12,7 @@ import { CodeBlock } from "react-code-block";
 import { Button } from "@/ui/button";
 
 import LikesButton from "../likes/LikesButton";
+import { useNavigate } from "react-router-dom";
 
 interface PropTypes {
     post: Tables<"posts">;
@@ -28,6 +29,12 @@ const truncateCode = (code: string) => {
 };
 
 const PostItem = ({ post }: PropTypes) => {
+    const navigate = useNavigate();
+
+    const handleViewFullPost = () => {
+        navigate(`/post/${post.id}`);
+    };
+
     return (
         <Card key={post.id}>
             <CardHeader className="space-y-4">
@@ -86,7 +93,11 @@ const PostItem = ({ post }: PropTypes) => {
             <CardFooter className="flex justify-between">
                 <LikesButton postId={post.id} />
 
-                <Button variant="outline" className="rounded-full">
+                <Button
+                    variant="outline"
+                    className="rounded-full"
+                    onClick={handleViewFullPost}
+                >
                     view full post
                 </Button>
             </CardFooter>

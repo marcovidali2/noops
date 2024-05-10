@@ -3,19 +3,19 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
-export const useUserPosts = () => {
+export const usePost = (postId: number) => {
     const {
-        data: posts,
+        data: post,
         isLoading,
         error,
     } = useQuery({
-        queryFn: getPost,
-        queryKey: ["userPosts"],
+        queryFn: () => getPost(postId),
+        queryKey: ["post", postId],
     });
 
     useEffect(() => {
-        if (error) toast.error("an error occured while fetching your posts");
+        if (error) toast.error("an error occured while fetching post");
     }, [error]);
 
-    return { posts, isLoading };
+    return { post, isLoading };
 };

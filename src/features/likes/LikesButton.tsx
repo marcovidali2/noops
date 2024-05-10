@@ -2,9 +2,9 @@ import { Button } from "@/ui/button";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
 import { useLikes } from "./useLikes";
 import { useHasLiked } from "./useHasLiked";
+import { useToggleLike } from "./useToggleLike";
 
 import Spinner from "@/ui/Spinner";
-import { useToggleLike } from "./useToggleLike";
 
 interface PropTypes {
     postId: number;
