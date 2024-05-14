@@ -1,4 +1,4 @@
-import { getPost } from "@/services/apiPosts";
+import { getUserPosts } from "@/services/apiPosts";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -9,7 +9,7 @@ export const useUserPosts = () => {
         isLoading,
         error,
     } = useQuery({
-        queryFn: getPost,
+        queryFn: getUserPosts,
         queryKey: ["userPosts"],
     });
 

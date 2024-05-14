@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 interface PropTypes {
     post: Tables<"posts">;
+    full?: boolean;
 }
 
 const truncateCode = (code: string) => {
@@ -28,7 +29,7 @@ const truncateCode = (code: string) => {
     }
 };
 
-const PostItem = ({ post }: PropTypes) => {
+const PostItem = ({ post, full }: PropTypes) => {
     const navigate = useNavigate();
 
     const handleViewFullPost = () => {
@@ -59,7 +60,7 @@ const PostItem = ({ post }: PropTypes) => {
                     <div className="space-y-2">
                         <CardTitle>{post.title}</CardTitle>
 
-                        <CardDescription className="line-clamp-3">
+                        <CardDescription className={!full ? "line-clamp-3" : ""}>
                             {post.content}
                         </CardDescription>
                     </div>
@@ -70,7 +71,7 @@ const PostItem = ({ post }: PropTypes) => {
                 <CardContent className="space-y-4">
                     {post.code && (
                         <CodeBlock
-                            code={truncateCode(post.code)}
+                            code={full ? post.code : truncateCode(post.code)}
                             language={post.language ?? ""}
                         >
                             <CodeBlock.Code className="rounded-xl bg-primary-foreground p-6 shadow-lg">
@@ -93,13 +94,13 @@ const PostItem = ({ post }: PropTypes) => {
             <CardFooter className="flex justify-between">
                 <LikesButton postId={post.id} />
 
-                <Button
+                {!full && <Button
                     variant="outline"
                     className="rounded-full"
                     onClick={handleViewFullPost}
                 >
                     view full post
-                </Button>
+                </Button>}
             </CardFooter>
         </Card>
     );
