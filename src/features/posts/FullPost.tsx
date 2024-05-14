@@ -6,6 +6,7 @@ import { Avatar, AvatarImage } from "@/ui/avatar";
 import { useEffect, useRef } from "react";
 
 import FullPageSpinner from "@/ui/FullPageSpinner";
+import LikesButton from "../likes/LikesButton";
 
 const FullPost = () => {
     const { postId } = useParams();
@@ -59,6 +60,8 @@ const FullPost = () => {
             )}
 
             {post.image && <img src={post.image} className="rounded-lg" />}
+
+            <LikesButton postId={post.id}/>
         </div>
     );
 };
