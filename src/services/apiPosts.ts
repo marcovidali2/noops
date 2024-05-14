@@ -31,7 +31,7 @@ export const getUserPosts = async () => {
 
     const { data: posts, error } = await supabase
         .from("posts")
-        .select("*")
+        .select("*, profile(*)")
         .eq("profile", user!.id)
         .order("createdAt", { ascending: false });
 

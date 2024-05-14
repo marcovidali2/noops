@@ -36,9 +36,11 @@ const ProfileInfo = () => {
                 </div>
             </div>
 
-            <Alert>
-                <AlertDescription>{profile.bio}</AlertDescription>
-            </Alert>
+            {profile.bio && (
+                <Alert>
+                    <AlertDescription>{profile.bio}</AlertDescription>
+                </Alert>
+            )}
 
             {posts?.length === 0 && (
                 <Alert>
@@ -49,6 +51,8 @@ const ProfileInfo = () => {
                     </AlertDescription>
                 </Alert>
             )}
+
+            {console.log(posts[0].profile.avatar)}
 
             <div className="flex flex-col gap-4">
                 {posts?.map((post) => <PostItem key={post.id} post={post} />)}
