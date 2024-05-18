@@ -52,8 +52,6 @@ const ProfileInfo = () => {
                 </Alert>
             )}
 
-            {console.log(posts[0].profile.avatar)}
-
             <div className="flex flex-col gap-4">
                 {posts?.map((post) => <PostItem key={post.id} post={post} />)}
             </div>
