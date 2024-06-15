@@ -50,7 +50,7 @@ export type Database = {
                     id: number;
                     image: string | null;
                     language: string | null;
-                    profile: string;
+                    profile: Tables<"profiles">;
                     title: string | null;
                 };
                 Insert: {
