@@ -32,17 +32,9 @@ export const getUsernames = async () => {
 };
 
 export const createProfile = async (profile: Tables<"profiles">) => {
-    const profileSupabase = {
-        name: profile.name,
-        username: profile.username,
-        favoriteLanguage: profile.favoriteLanguage,
-        bio: profile.bio,
-        avatar: profile.avatar,
-    };
-
     const { error } = await supabase
         .from("profiles")
-        .upsert([profileSupabase], { onConflict: "user" });
+        .upsert([profile], { onConflict: "user" });
 
     if (error) throw new Error(error.message);
 };

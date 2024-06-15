@@ -4,20 +4,24 @@ import { useCreateProfile } from "./useCreateProfile";
 import { useNavigate } from "react-router-dom";
 
 import FullPageSpinner from "@/ui/FullPageSpinner";
+import { Tables } from "@/types";
 
 const WelcomeSubmitScript = () => {
     const navigate = useNavigate();
 
-    const { name, username, favoriteLanguage, bio, avatar } = useProfileStore();
+    const { name, username, favoriteLanguage, bio, avatar, joinedAt, user } =
+        useProfileStore();
     const { createProfile } = useCreateProfile();
 
     useEffect(() => {
-        const profile = {
-            name: name,
-            username: username,
-            favoriteLanguage: favoriteLanguage,
-            bio: bio,
+        const profile: Tables<"profiles"> = {
             avatar: avatar,
+            bio: bio,
+            favoriteLanguage: favoriteLanguage,
+            username: username,
+            name: name,
+            joinedAt: joinedAt,
+            user: user,
         };
 
         createProfile(profile, {
@@ -31,6 +35,8 @@ const WelcomeSubmitScript = () => {
         favoriteLanguage,
         bio,
         avatar,
+        joinedAt,
+        user,
         createProfile,
         navigate,
     ]);

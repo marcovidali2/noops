@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProfile as apiCreateProfile } from "@/services/apiProfiles";
-import { Tables } from "@/types";
 import { toast } from "sonner";
+import { Tables } from "@/types";
 
 export const useCreateProfile = () => {
     const queryClient = useQueryClient();
