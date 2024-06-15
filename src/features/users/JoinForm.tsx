@@ -16,7 +16,7 @@ import { IoReload } from "react-icons/io5";
 
 const formSchema = z.object({
     email: z.string().email({
-        select: "invalid email address",
+        message: "invalid email address",
     }),
 });
 
