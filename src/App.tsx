@@ -30,12 +30,9 @@ const WelcomeSubmit = lazy(() => import("./pages/WelcomeSubmit"));
 const App = () => {
     useSetTheme();
 
-    console.log("Test");
-
     return (
         <>
             <Toaster position="top-center" />
-            <h1>hello</h1>
 
             <QueryClientProvider client={queryClient}>
                 <ReactQueryDevtools />
