@@ -3,12 +3,9 @@ import ResponsiveForm from "@/ui/ResponsiveForm";
 
 const Join = () => {
     return (
-        <>
-            <h1>hello</h1>
-            <ResponsiveForm>
-                <JoinForm />
-            </ResponsiveForm>
-        </>
+        <ResponsiveForm>
+            <JoinForm />
+        </ResponsiveForm>
     );
 };
 
