@@ -3,6 +3,7 @@ import { useSetTheme } from "./ui/useSetTheme";
 import { Toaster } from "./ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, lazy } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import AppLayout from "./AppLayout";
 import FullPageSpinner from "./ui/FullPageSpinner";
@@ -34,6 +35,8 @@ const App = () => {
             <Toaster position="top-center" />
 
             <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
+
                 <Suspense fallback={<FullPageSpinner />}>
                     <BrowserRouter>
                         <Routes>
